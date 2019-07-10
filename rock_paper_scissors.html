@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rock Paper Scissors</title>
+</head>
+<body>
+	<script>
+		let option = ["rock", "paper", "scissors"];
+		let player;
+		computerPlay = () => option[Math.floor(Math.random()*3)];
+		playerPlay = () => { 
+			let cicle = true;
+			while ( cicle ) {
+				player= prompt('Write: Rock, Paper, or Scissors').toLowerCase();
+				( player == 'rock' || player == 'paper' || player == 'scissors') ? cicle = false : console.log ('Must write Rock, Paper or Scissors');
+			};
+			return player;
+		};
+		function playRound(playerSelection, computerSelection, playerScore, computerScore) {
+			console.log(`Human    = ${playerSelection}`);
+			console.log(`Computer = ${computerSelection}`);
+			switch (true) {
+				case (playerSelection == 'rock'     && computerSelection == 'scissors'):
+					playerScore++
+					break;
+				case (playerSelection == 'rock'     && computerSelection == 'paper'):
+					computerScore++
+					break;
+				case (playerSelection == 'paper'    && computerSelection == 'scissors'):
+					computerScore++
+					break;
+				case (playerSelection == 'paper'    && computerSelection == 'rock'):
+					playerScore++
+					break;
+				case (playerSelection == 'scissors' && computerSelection == 'paper'):
+					playerScore++
+					break;
+				case (playerSelection == 'scissors' && computerSelection == 'rock'):
+					computerScore++
+					break;
+			}
+			console.log(`playerScore ${playerScore} <--> ${computerScore} computerScore`);
+			return [playerScore, computerScore];
+		};
+		game = () => {
+			let playerScore   = 0;
+			let computerScore = 0;
+			for(let i = 0; i < 5; i++) {
+				const playerSelection = playerPlay();
+				const computerSelection = computerPlay();
+				console.log(`Round: ${i+1}`);
+				const total = playRound(playerSelection, computerSelection, playerScore, computerScore);
+				playerScore   = total[0];
+				computerScore = total[1];
+			};
+			switch (true) {
+				case (playerScore > computerScore):
+					console.log('Human Wins');
+					break;
+				case (playerScore < computerScore):
+					console.log('Computer Wins');
+					break;
+				default:
+					console.log('Computer and Human Ties');
+					break;
+			};
+		};
+
+		game();
+
+	</script>
+</body>
+</html>
