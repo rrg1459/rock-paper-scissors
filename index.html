@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rock Paper Scissors</title>
+</head>
+<body>
+	<h2>Rock Paper Scissors</h2>
+	<p>(Win with five points)</p>
+
+	<button id="rock">Rock</button>
+	<button id="paper">Paper</button>
+	<button id="scissors">Scissors</button>
+	<br><br>
+	<h3><div id="human"></div></h3>
+	<h3><div id="computer"></div></h3>
+	<br>
+	<h4><div id="score"></div></h4>
+	<br>
+	<h4><div id="winner"></div></h4>
+	<script>
+		let playerScore = 0;
+		let computerScore = 0;
+		const rock = document.querySelector('#rock');
+		const paper = document.querySelector('#paper');
+		const scissors = document.querySelector('#scissors');
+		const option = ["rock", "paper", "scissors"];
+		const human = document.querySelector('#human');
+		const computer = document.querySelector('#computer');
+		const score = document.querySelector('#score');
+		const winner = document.querySelector('#winner');
+		const humanPlay = document.createElement('human');
+		const pcPlay = document.createElement('computer');
+		const screenScore = document.createElement('score');
+		const screenWinner = document.createElement('winner');
+
+		game = () => {
+			cont = true;
+			computerPlay = () => option[Math.floor(Math.random()*3)];
+			rock.onclick = (e) => playRound(rock.id);
+			paper.onclick = (e) => playRound(paper.id);
+			scissors.onclick = (e) => playRound(scissors.id);
+			screenScore.classList.add('content');
+			human.appendChild(humanPlay);
+			computer.appendChild(pcPlay);
+			score.appendChild(screenScore);
+			winner.appendChild(screenWinner);
+		};
+
+		function playRound(playerSelection) {
+			if (cont) {
+				const computerSelection = computerPlay();
+				humanPlay.textContent = `Human ${playerSelection}`;
+				pcPlay.textContent = `Computer ${computerSelection}`;
+				switch (true) {
+					case (playerSelection == 'rock'     && computerSelection == 'scissors'):
+						playerScore++
+						break;
+					case (playerSelection == 'rock'     && computerSelection == 'paper'):
+						computerScore++
+						break;
+					case (playerSelection == 'paper'    && computerSelection == 'scissors'):
+						computerScore++
+						break;
+					case (playerSelection == 'paper'    && computerSelection == 'rock'):
+						playerScore++
+						break;
+					case (playerSelection == 'scissors' && computerSelection == 'paper'):
+						playerScore++
+						break;
+					case (playerSelection == 'scissors' && computerSelection == 'rock'):
+						computerScore++
+						break;
+				}
+				screenScore.textContent = `playerScore ${playerScore} <--> ${computerScore} computerScore`;
+				if (playerScore === 5) {
+					screenWinner.textContent = 'The Human Win!!!';
+					cont = false;
+				} else if (computerScore === 5) {
+					screenWinner.textContent = 'The Computer Win!!!';
+					cont = false;
+				};
+			};
+		};
+
+		game();
+
+	</script>
+</body>
+</html>
